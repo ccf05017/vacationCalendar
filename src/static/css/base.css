@@ -1,0 +1,45 @@
+td {
+  bottom: 0px;
+  left: 0px;
+  font-size: 12px;
+  font-weight: 300;
+  padding: 10px 10px 3px 0px;
+  width: 110px;
+  max-width: 110px;
+  height: 110px;
+  max-height: 110px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  table-layout: fixed;
+  word-break: break-all;
+}
+
+th {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  text-align: center;
+  font-size: 15px;
+}
+
+tbody {
+  vertical-align: top
+}
+
+.month {
+  width: 100%;
+  max-width: 100%;
+  border: 1;
+  font-size: 35px;
+}
+
+.sun {
+  color: red
+}
+
+.sat {
+  color: blue
+}

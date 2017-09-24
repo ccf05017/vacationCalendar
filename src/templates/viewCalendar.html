@@ -1,4 +1,61 @@
 {% extends "base.html" %}
 {% block body %}
-<div> {{ calendar }} </div>
+<script>
+  var model;
+  $(document).ready(function() {
+    //document.getElementById("papa").onmouseover = function() {mouseOver()};
+    //document.getElementById("papa").onmouseout = function() {mouseOut()};
+
+    //document.querySelector(".papa").onmouseover = function() {mouseOver()};
+    //document.querySelector(".papa").onmouseout = function() {mouseOut()};
+    $(".papa").on("mouseover", function() { mouseOver(this) })
+    $(".papa").on("mouseout", function() { mouseOut(this) })
+    $(".papa").on("mousemove", function() { mouseMove(this) })
+
+    model = {{ employee|safe }};
+  });
+
+
+
+  function mouseOver(target) {
+    console.log("over")
+      //document.getElementById("papa").style.color = "red";
+      //event.target.style.color = "red";
+      //target.css
+      jQuery(target).css('color', 'red');
+      var selected = [];
+      var selectStr = "";
+      for(var i=0 ; i<model.length ; i++) {
+        if("day"+model[i].vacationDate == jQuery(target).parent().parent().attr('id')) {
+          //selected.push(model[i]);
+          if(model[i].department == 'nw') {
+              selectStr += model[i].name + "<br/>";
+          }
+        }
+      }
+      $("#popup").html(selectStr)
+
+      $("#popup").css('display', 'block')
+  }
+
+  function mouseOut(target) {
+    jQuery(target).css('color', 'blue');
+    console.log("out")
+      $("#popup").css('display', 'none')
+  }
+
+  function mouseMove(target) {
+    console.log("move")
+    jQuery(target).css('color', 'purple');
+    $("#popup").css('left', (event.clientX+10) + 'px')
+    $("#popup").css('top', event.clientY + 'px')
+  }
+</script>
+
+<div>
+  {{ calendar }}
+</div>
+
+<div id='popup'></div>
+
 {% endblock %}

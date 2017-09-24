@@ -43,3 +43,8 @@ tbody {
 .sat {
   color: blue
 }
+
+#popup {
+  position: absolute;
+  display: none;
+}

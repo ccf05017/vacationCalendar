@@ -19,6 +19,12 @@ class Employee(models.Model):
         default = IDCNETWORK,
     )
     vacationDate = models.DateField()
-
     def __str__(self):
         return self.name
+    def as_dict(self):
+        return {
+            "name": self.name,
+            "department": self.department,
+            "employeeNumber": self.employeeNumber,
+            "vacationDate": self.vacationDate.day
+        }

@@ -4,6 +4,8 @@ from .models import Employee
 from calendar import HTMLCalendar
 from datetime import date
 from itertools import groupby
+import json
+#import serializers
 
 class VacationCalendar(HTMLCalendar):
 
@@ -26,36 +28,45 @@ class VacationCalendar(HTMLCalendar):
             if day in self.vacations:
                 #cssclass += 'filled'
                 body = ['<div>']
+                num_nw=0
+                num_svr=0
                 for vacation in self.vacations[day]:
                     # 확인용 소스
                     # body.append(vacation.name)
                     # body.append('<br>')
                     # 마우스 오버했을 때 객체 보이게 할 것, 색 조절할 것
-                    body.append('<i class="fa fa-circle" aria-hidden="true"></i>')
+                    if vacation.department == 'nw':
+                        num_nw += 1
+                    if vacation.department == 'sr':
+                        num_svr += 1
+                body.append('<div class="papa" style="color:blue">NW: ' + str(num_nw) +
+                    '</div>' )
+                body.append('<div>SVR: ' + str(num_svr) + '</div>')
                 body.append('</div>')
-                return self.day_cell(cssclass, '%d %s' % (day, ''.join(body)))
-            return self.day_cell(cssclass, day)
+                return self.day_cell(day, cssclass, '%d %s' % (day, ''.join(body)))
+            return self.day_cell(day, cssclass, day)
 
         # day == 0일 경우, 공백을 반환
-        return self.day_cell('noday', '&nbsp')
+        return self.day_cell(day, 'noday', '&nbsp')
 
     def formatmonth(self, year, month):
         self.year, self.month = year, month
         return super(VacationCalendar, self).formatmonth(year, month)
 
-    def day_cell(self, cssclass, body):
-        return '<td class="%s">%s</td>' % (cssclass, body)
+    def day_cell(self, day, cssclass, body):
+        return '<td id="day%s" class="%s">%s</td>' % (day, cssclass, body)
 
 # Create your views here.
 def viewCalendar(request, year, month):
     employee_vacations = Employee.objects.order_by('vacationDate').filter(
         vacationDate__year = int(year), vacationDate__month = int(month)
     )
-
     result_calendar = VacationCalendar(employee_vacations).formatmonth(int(year), int(month))
 
     context = {
         'calendar': mark_safe(result_calendar),
+        'employee': json.dumps([item.as_dict() for item in employee_vacations])
+        #'employee': [item.as_dict() for item in employee_vacations]
     }
 
     return render(request, "viewCalendar.html", context)

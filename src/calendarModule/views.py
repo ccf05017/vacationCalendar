@@ -39,9 +39,10 @@ class VacationCalendar(HTMLCalendar):
                         num_nw += 1
                     if vacation.department == 'sr':
                         num_svr += 1
-                body.append('<div class="papa" style="color:blue">NW: ' + str(num_nw) +
+                body.append('<div class="vacationNW">NW: ' + str(num_nw) +
                     '</div>' )
-                body.append('<div>SVR: ' + str(num_svr) + '</div>')
+                body.append('<div class="vacationSVR">SVR: ' + str(num_svr) +
+                    '</div>')
                 body.append('</div>')
                 return self.day_cell(day, cssclass, '%d %s' % (day, ''.join(body)))
             return self.day_cell(day, cssclass, day)

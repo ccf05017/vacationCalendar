@@ -1,8 +1,9 @@
 td {
   bottom: 0px;
   left: 0px;
-  font-size: 12px;
-  font-weight: 300;
+  font-size: 20px;
+  text-align: right;
+  font-weight: bold
   padding: 10px 10px 3px 0px;
   width: 110px;
   max-width: 110px;
@@ -23,6 +24,7 @@ th {
   border-left: 1px solid #ddd;
   text-align: center;
   font-size: 15px;
+  background-color: #eee;
 }
 
 tbody {
@@ -36,15 +38,29 @@ tbody {
   font-size: 35px;
 }
 
-.sun {
-  color: red
+.vacationNW {
+  font-size: 14px;
+  text-align: left;
+  background-color: #0073b7;
+  color: white;
+  border-radius: 5px;
 }
 
-.sat {
-  color: blue
+.vacationSVR {
+  font-size: 14px;
+  text-align: left;
+  background-color: #00c0ef;
+  color: white;
+  border-radius: 5px;
 }
 
 #popup {
   position: absolute;
   display: none;
+  background-color: #fcf8e3;
+  -moz-border-radius:    10px;
+  -webkit-border-radius: 10px;
+  border-radius:         10px;
+  padding: 3px 3px 3px 3px;
+  vertical-align: middle;
 }

@@ -3,14 +3,13 @@
 <script>
   var model;
   $(document).ready(function() {
-    //document.getElementById("papa").onmouseover = function() {mouseOver()};
-    //document.getElementById("papa").onmouseout = function() {mouseOut()};
+    $(".vacationNW").on("mouseover", function() { mouseOver(this) })
+    $(".vacationNW").on("mouseout", function() { mouseOut(this) })
+    $(".vacationNW").on("mousemove", function() { mouseMove(this) })
 
-    //document.querySelector(".papa").onmouseover = function() {mouseOver()};
-    //document.querySelector(".papa").onmouseout = function() {mouseOut()};
-    $(".papa").on("mouseover", function() { mouseOver(this) })
-    $(".papa").on("mouseout", function() { mouseOut(this) })
-    $(".papa").on("mousemove", function() { mouseMove(this) })
+    $(".vacationSVR").on("mouseover", function() { mouseOver(this) })
+    $(".vacationSVR").on("mouseout", function() { mouseOut(this) })
+    $(".vacationSVR").on("mousemove", function() { mouseMove(this) })
 
     model = {{ employee|safe }};
   });
@@ -22,33 +21,43 @@
       //document.getElementById("papa").style.color = "red";
       //event.target.style.color = "red";
       //target.css
-      jQuery(target).css('color', 'red');
-      var selected = [];
-      var selectStr = "";
+      //jQuery(target).css('color', 'red');
+      var selectNW = "";
+      var selectSVR = "";
+
       for(var i=0 ; i<model.length ; i++) {
         if("day"+model[i].vacationDate == jQuery(target).parent().parent().attr('id')) {
           //selected.push(model[i]);
-          if(model[i].department == 'nw') {
-              selectStr += model[i].name + "<br/>";
+          if (model[i].department == 'nw') {
+              selectNW += model[i].name + " ";
+          }
+          else if (model[i].department == 'sr') {
+              selectSVR += model[i].name + " ";
           }
         }
       }
-      $("#popup").html(selectStr)
+      if (jQuery(target).attr('class') == "vacationNW") {
+        $("#popup").html(selectNW)
+      }
+      else if (jQuery(target).attr('class') == "vacationSVR") {
+        $("#popup").html(selectSVR)
+      }
 
       $("#popup").css('display', 'block')
   }
 
   function mouseOut(target) {
-    jQuery(target).css('color', 'blue');
+    //jQuery(target).css('color', 'blue');
     console.log("out")
       $("#popup").css('display', 'none')
+      $("#popup").html()
   }
 
   function mouseMove(target) {
     console.log("move")
-    jQuery(target).css('color', 'purple');
+    //jQuery(target).css('color', 'purple');
     $("#popup").css('left', (event.clientX+10) + 'px')
-    $("#popup").css('top', event.clientY + 'px')
+    $("#popup").css('top', (event.clientY) + 'px')
   }
 </script>
 

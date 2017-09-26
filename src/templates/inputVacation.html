@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block body %}
+<script>
+$(document).ready(function() {
+  (function appendYear(){
+  	var date = new Date();
+  	var year = date.getFullYear();
+  	var selectValue = document.getElementById("year");
+  	var optionIndex = 0;
+    for(var i=year+5;i>=year;i--){
+  			selectValue.add(new Option(i,i),optionIndex++);
+  	}
+  })();
+
+  (function appendStartMonth(){
+  	var selectValue = document.getElementById("startMonth");
+  	var optionIndex = 0;
+  	for(var i=1;i<=12;i++){
+  			selectValue.add(new Option(i,i),optionIndex++);
+  	}
+  })();
+
+  (function appendEndMonth(){
+  	var selectValue = document.getElementById("endMonth");
+  	var optionIndex = 0;
+  	for(var i=1;i<=12;i++){
+  			selectValue.add(new Option(i,i),optionIndex++);
+  	}
+  })();
+
+  (function appendStartDate(){
+  	var selectValue = document.getElementById("startDate");
+  	var optionIndex = 0;
+  	for(var i=1;i<=31;i++){
+  			selectValue.add(new Option(i,i),optionIndex++);
+  	}
+  })();
+
+  (function appendEndDate(){
+  	var selectValue = document.getElementById("endDate");
+  	var optionIndex = 0;
+  	for(var i=1;i<=31;i++){
+  			selectValue.add(new Option(i,i),optionIndex++);
+  	}
+  })();
+});
+</script>
+
+<div class="container">
+  <form class="form-vacationdate" method="post" action="">
+    {% csrf_token %}
+    <div class="selectbox">
+        <select id="year" name="year">
+            <option>Year</option>
+        </select>년
+        <select id="startMonth" name="startMonth">
+            <option>Month</option>
+        </select>월
+        <select id="startDate" name="startDate">
+            <option>Date</option>
+        </select>일 ~
+        <select id="endMonth" name="endMonth">
+            <option>Date</option>
+        <select id="endDate" name="endDate">
+            <option>Date</option>
+        </select>일
+    </div>
+    </br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">제출</button>
+  </form>
+</div>
+{% endblock %}

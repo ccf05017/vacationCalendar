@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('calendarModule.urls')),
+    url(r'^', include('loginVacation.urls')),
     url(r'^admin/', admin.site.urls),
 ]

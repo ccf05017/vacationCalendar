@@ -3,5 +3,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.viewCalendar, name='viewCalendar')
+    url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.viewCalendar, name='viewCalendar'),
+    url(r'^noAnswer/', views.noAnswer, name='noAnswer'),
 ]

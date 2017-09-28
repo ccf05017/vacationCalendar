@@ -4,6 +4,9 @@ from .models import Employee
 from calendar import HTMLCalendar
 from datetime import date
 from itertools import groupby
+from django.core.mail import send_mail
+from loginVacation.models import AuthEmployee
+from django.contrib.auth.models import User
 import json
 #import serializers
 
@@ -66,8 +69,37 @@ def viewCalendar(request, year, month):
 
     context = {
         'calendar': mark_safe(result_calendar),
-        'employee': json.dumps([item.as_dict() for item in employee_vacations])
+        'employee': json.dumps([item.as_dict() for item in employee_vacations]),
         #'employee': [item.as_dict() for item in employee_vacations]
     }
 
     return render(request, "viewCalendar.html", context)
+
+def noAnswer(request):
+    # 모델들 로딩
+    authEmployee_list = User.objects.all()
+    employee_list = Employee.objects.all()
+    noanswer_list = []
+    noanswer_result_list = []
+
+    # 두 모델을 비교
+    # 입력된 휴가 일자가 5일 미만일 경우 noanswer_list에 추가
+    for authemployee in authEmployee_list:
+        inputVacationNum = 0
+        for employee in employee_list:
+            if str(authemployee.username) == str(employee.employeeNumber):
+                inputVacationNum += 1
+        if inputVacationNum != 5:
+            noanswer_list.append(authemployee.username)
+
+    # 관리자는 어차피 대상이 아니기 때문에 삭제해준다.
+    noanswer_list.remove('admin')
+
+    # 미응답자만 별도 list 관리
+    for noanswer in noanswer_list:
+        noanswer_result_list.append(User.objects.get(username=str(noanswer)))
+
+    context = {
+        "noanswer_result_list" : noanswer_result_list
+    }
+    return render(request, "noAnswer.html", context)

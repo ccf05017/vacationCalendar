@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-<script>
+<!-- JAVA script 활용버전 -->
+<!-- <script>
 $(document).ready(function() {
   (function appendYear(){
   	var date = new Date();
@@ -68,5 +69,42 @@ $(document).ready(function() {
     </br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">제출</button>
   </form>
+</div> -->
+<div class="container">
+  <div class="to-middle">
+    <div class="jumbotron">
+      <h1 class="jumbotron-h1">휴가 계획을 입력해주세요</h1>
+      <p class="lead">
+        {% if user.authemployee.department == 'nw' %}
+          IDC Network team, {{ request.user.authemployee.realName }}
+        {% elif user.authemployee.department == 'sr' %}
+          IDC Technology team, {{ request.user.authemployee.realName }}
+        {% endif %}
+      </p>
+      <form class="form-vacationdate" method="post" action="">
+        {% csrf_token %}
+        <div class="fieldWrapper-start">
+            {{ vacation_form.startVacation.errors }}
+            <label for="{{ form.startVacation.id_for_label }}">
+              시작일:
+            </label>
+            {{ vacation_form.startVacation }}
+        </div>
+        <div class="fieldWrapper-end">
+            {{ vacation_form.endVacation.errors }}
+            <label for="{{ form.endVacation.id_for_label }}">
+              종료일:
+            </label>
+            {{ vacation_form.endVacation }}
+        </div>
+        <p class="lead">
+            <br>
+            <button class="btn btn-lg btn-primary" type="submit">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;출</button>
+        </p>
+      </form>
+    </div>
+  </div>
 </div>
+
+
 {% endblock %}

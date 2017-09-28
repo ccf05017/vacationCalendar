@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluid">
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>사  번</th>
+          <th>성  명</th>
+          <th>부  서</th>
+          <th>Email</th>
+          <th>메일발송</th>
+        </tr>
+      </thead>
+      <tbody class="noanswer-table">
+        {% for user in noanswer_result_list %}
+          <tr class="noanswer-tr">
+            <td class="noanswer-td">{{ user.username }}</td>
+            <td class="noanswer-td">{{ user.authemployee.realName }}</td>
+            <td class="noanswer-td">
+              {% if user.authemployee.department == 'nw' %}
+                IDC Network
+              {% elif user.authemployee.department == 'sr' %}
+                IDC Technology
+              {% endif %}
+            </td>
+            <td class="noanswer-td">{{ user.email }}</td>
+            <td class="noanswer-td">
+              <form class="send-mail" method="post" action="">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-primary" type="button">메일발송</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+{% endblock %}

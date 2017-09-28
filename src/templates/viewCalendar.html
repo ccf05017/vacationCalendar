@@ -61,10 +61,19 @@
   }
 </script>
 
-<div>
-  {{ calendar }}
+<div class="fluid-container">
+  <div>
+    {{ calendar }}
+  </div>
+  <div class="to-no-answer">
+    <br>
+    <form align-items="center">
+      <button class="btn btn-lg btn-danger" type="button" onclick="location.href='{% url 'noAnswer' %}'">
+          미응답자 목록으로
+      </button>
+    </form>
+  </div>
 </div>
-
 <div id='popup'></div>
 
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <h1>설문에 참여해 주셔서 감사합니다.</h1>
+      <p>일정 수정을 원하실 경우, 재접속 후 입력하시면 됩니다.</p>
+      <p>여름 휴가 계획 취합 관련 상세 문의는 아래 담당자에게 문의하시면 됩니다.</p>
+      <p>담당자:</p>
+      <form action="/login">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인 화면으로</button>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}
